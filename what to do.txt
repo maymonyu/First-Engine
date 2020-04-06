@@ -1,0 +1,6 @@
+vscode
+node
+gitforWindows
+git kraken
+connect git to rep
+npm install
