@@ -4,7 +4,8 @@
   "description": "first engine!!",
   "main": "test.js",
   "scripts": {
-    "start": "nodemon test.js"
+    "start": "nodemon test.js",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   "dependencies": {},
   "devDependencies": {
     "nodemon": "^2.0.2",
+    "tslint": "^6.1.1",
     "typescript": "^3.8.3"
   }
 }
