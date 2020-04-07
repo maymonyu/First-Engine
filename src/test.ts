@@ -1,4 +1,4 @@
-console.log('hello boyy')
+console.log('hellod boyy');
 
 let mysum: String;
-console.log('ssddada')
+console.log('ssddada');

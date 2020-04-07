@@ -1,9 +1,11 @@
 {
     "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended"
-    ],
     "jsRules": {},
-    "rules": {},
+    "rules": {
+        "ban-ts-ignore": true,
+        "await-promise": true,
+        "curly": true,
+        "semicolon": [true, "always"]
+    },
     "rulesDirectory": []
 }
