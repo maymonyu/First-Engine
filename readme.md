@@ -1,2 +1,6 @@
-![master](https://github.com/maymonyu/First-Engine/workflows/Node.js%20CI/badge.svg?branch=master&event=push)
-![develop](https://github.com/maymonyu/First-Engine/workflows/Node.js%20CI/badge.svg?branch=develop&event=push)
+
+Master:
+![CI](https://github.com/maymonyu/First-Engine/workflows/CI/badge.svg?branch=master&event=push)
+
+Develop:
+![CI](https://github.com/maymonyu/First-Engine/workflows/CI/badge.svg?branch=develop&event=push)
