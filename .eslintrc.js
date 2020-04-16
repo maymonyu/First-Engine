@@ -147,7 +147,6 @@ module.exports = {
         // 'no-undef': 'error', // eslint:recommended
         // 'no-undef-init': 'off',
         // 'no-undefined': 'off',
-        'no-unused-vars': ['error', { args: 'none' }], // eslint:recommended
         // 'no-use-before-define': 'off',
 
         // Node.js and CommonJS
@@ -217,7 +216,7 @@ module.exports = {
         // 'lines-around-comment': 'off',
         // 'max-depth': 'off',
         'max-len': ['error', {
-            code: 80,
+            code: 120,
             tabWidth: 2,
             ignoreUrls: true,
             ignorePattern: 'goog\.(module|require)',
@@ -269,13 +268,6 @@ module.exports = {
         // 'padding-line-between-statements': 'off',
         'quote-props': ['error', 'consistent'],
         'quotes': ['error', 'single', { allowTemplateLiterals: true }],
-        'require-jsdoc': ['error', {
-            require: {
-                FunctionDeclaration: true,
-                MethodDefinition: true,
-                ClassDeclaration: true,
-            },
-        }],
         'semi': 'error',
         'semi-spacing': 'error',
         // 'semi-style': 'off',

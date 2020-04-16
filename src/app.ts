@@ -1,5 +1,5 @@
-import { buildTvirim , buildIturim } from './providers/csv-provider';
+import {buildTvirim, buildIturim} from './providers/csv-provider';
 
 
 buildTvirim();
-buildIturim();
+// buildIturim();
