@@ -5,9 +5,9 @@ name: CI
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ master, develop, git-actions ]
   pull_request:
-    branches: [ master, develop ]
+    branches: [ master, develop, git-actions ]
 
 jobs:
   build:
