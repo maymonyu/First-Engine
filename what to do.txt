@@ -1,9 +1,0 @@
-
-- download vscode
-- donwload nodejs
-- download gitforWindows
-- download git kraken
-- connect git to rep
-- npm install
-- npm start should work (nodemon and typescript) , don't forget autosave
-- npm run lint will apply linter

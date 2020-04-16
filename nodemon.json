@@ -1,6 +1,10 @@
 {
-    "watch": ["src"],
-    "ext": "ts",
-    "ignore": ["src/**/*.spec.ts"],
-    "exec": "ts-node ./src/test.ts"   
-  }
+  "watch": [
+    "src"
+  ],
+  "ext": "ts",
+  "ignore": [
+    "src/**/*.spec.ts"
+  ],
+  "exec": "eslint --ext .ts src/ --fix && ts-node ./src/app.ts"
+}
