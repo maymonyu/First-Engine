@@ -1,4 +1,4 @@
 interface Coordinate {
-    coordX: number;
-    coordY: number;
+    x: number;
+    y: number;
 }

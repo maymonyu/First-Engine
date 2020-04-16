@@ -5,5 +5,5 @@ interface Cluster{
     staying: number;
     profession: string;
     numberOfBuildings: number;
-    geoBuildings: Array<Coordinate>;
+    geoBuildings: Coordinate[];
 }
