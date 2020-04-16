@@ -1,4 +1,4 @@
-interface Rule{
+export interface Rule{
     key: string;
     value: string;
 }
