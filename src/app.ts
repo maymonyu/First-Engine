@@ -1,4 +1,5 @@
-console.log('hellod boyy');
+import { buildTvirim , buildIturim } from './providers/csv-provider';
 
-let mysum: String = "uri";
-console.log('ssddada');
+
+buildTvirim();
+buildIturim();
