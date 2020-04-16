@@ -17,8 +17,11 @@
     "url": "https://github.com/maymonyu/First-Engine/issues"
   },
   "homepage": "https://github.com/maymonyu/First-Engine#readme",
-  "dependencies": {},
+  "dependencies": {
+    "csv-parser": "^2.3.2"
+  },
   "devDependencies": {
+    "@types/node": "^13.11.1",
     "@typescript-eslint/parser": "^2.27.0",
     "eslint": "^6.8.0",
     "nodemon": "^2.0.2",
