@@ -6,7 +6,7 @@ export class ClusterWithIturim {
     iturimWithPolygons: IturimOfPolygon[];
 
     constructor(cluster: Cluster, iturimWithPolygons) {
-        this.cluster = cluster;
-        this.iturimWithPolygons = iturimWithPolygons;
+      this.cluster = cluster;
+      this.iturimWithPolygons = iturimWithPolygons;
     }
 }

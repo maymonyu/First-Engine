@@ -6,7 +6,7 @@ export class IturimOfPolygon {
     iturim: Itur[];
 
     constructor(polygon: Coordinate[], iturim: Itur[]) {
-        this.polygon = polygon;
-        this.iturim = iturim;
+      this.polygon = polygon;
+      this.iturim = iturim;
     }
 }
