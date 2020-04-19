@@ -1,4 +1,7 @@
-interface Cluster{
+
+import {Coordinate} from './coordinate';
+
+export interface Cluster {
     ID: string;
     hatzvaraQuality: string;
     identification: string;

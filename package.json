@@ -4,8 +4,8 @@
   "description": "first engine!!",
   "main": "test.js",
   "scripts": {
-    "test": "jest",
     "start": "nodemon",
+    "test": "jest",
     "lint": "eslint --ext .ts src/ --fix"
   },
   "repository": {
@@ -21,7 +21,8 @@
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^25.2.1",
-    "@typescript-eslint/parser": "^2.27.0",
+    "@typescript-eslint/eslint-plugin": "^2.28.0",
+    "@typescript-eslint/parser": "^2.28.0",
     "eslint": "^6.8.0",
     "jest": "^25.3.0",
     "nodemon": "^2.0.2",
