@@ -1,6 +1,6 @@
 console.log('hellod boyy');
 
-const mysum: String = 'uri';
+const mysum = 'uri';
 console.log(mysum);
 
 export function sum(a: number, b: number): number {
