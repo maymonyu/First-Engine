@@ -1,5 +1,6 @@
 import {Cluster} from '../types/cluster';
 import {Itur} from '../types/itur';
+import {Rule} from '../types/rule';
 import {Coordinate} from '../types/coordinate';
 import {parseFile, ParserOptionsArgs} from 'fast-csv';
 
@@ -25,6 +26,22 @@ export function buildTvirim() {
       clusters.push(createCluster(element));
     }
     console.log(clusters[0]);
+  });
+}
+
+export function buildRules() {
+  const parseOptions: ParserOptionsArgs = {
+    headers: [undefined, undefined, 'hatzvara_quality', 'in_building_quality', 'staying',
+      'number_of_buildings', 'context_to_profession', 'output_geo_value', 'output_essence_value'],
+    skipRows: 1,
+  };
+
+  return readFile('Constitution.csv', parseOptions, function(result: Array<any>) {
+    const rules: Array<Rule> = [];
+    for (const element of result) {
+      rules.push(createRule(element));
+    }
+    console.log(rules);
   });
 }
 
@@ -73,4 +90,18 @@ function createItur(element:any) {
   };
 
   return itur;
+}
+
+function createRule(element:any) {
+  const key = element['hatzvara_quality'] + ',' +element['in_building_quality'] + ',' +
+  element['staying']+ ',' + element['number_of_buildings'];
+
+  const value = element['output_geo_value'] + ',' +element['output_essence_value'];
+
+  const rule: Rule = {
+    key: key,
+    value: value,
+  };
+
+  return rule;
 }
