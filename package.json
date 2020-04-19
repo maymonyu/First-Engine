@@ -5,6 +5,7 @@
   "main": "test.js",
   "scripts": {
     "start": "nodemon",
+    "build": "tsc",
     "lint": "eslint --ext .ts src/ --fix"
   },
   "repository": {
