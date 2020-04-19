@@ -1,5 +1,5 @@
 import csv from 'csvtojson';
-import {Cluster, Itur, Coordinate} from '../types';
+import {Cluster, Itur, Coordinate, Rule, RuleValue, Constitution} from '../types';
 
 const readCsvFile = async (filePath: string): Promise<any[]> => {
   const data: any[] = await csv().fromFile(filePath);
@@ -23,7 +23,17 @@ export const readIturim = async (): Promise<Itur[]> => {
   return iturim;
 };
 
-function createCluster(element: any): Cluster {
+export const readConstitution = async (): Promise<Constitution> => {
+  const rulesCsvData = await readCsvFile('./data/Constitution.csv');
+  const constitution: Constitution = {};
+
+  const rules: Rule[] = rulesCsvData.map((ruleData) => createRule(ruleData));
+  rules.forEach((rule) => constitution[rule.key] = rule.value);
+
+  return constitution;
+};
+
+const createCluster = (element: any): Cluster => {
   const cluster: Cluster = {
     ID: element['ID'],
     hatzvaraQuality: element['hatzvara_quality'],
@@ -35,9 +45,9 @@ function createCluster(element: any): Cluster {
   };
 
   return cluster;
-}
+};
 
-function createItur(element: any): Itur {
+const createItur = (element: any): Itur => {
   const coordinate: Coordinate = {
     x: element['Points_x'],
     y: element['Points_y'],
@@ -52,4 +62,21 @@ function createItur(element: any): Itur {
   };
 
   return itur;
-}
+};
+
+const createRule = (element: any): Rule => {
+  const key = element['hatzvara_quality'] + ',' + element['in_building_quality'] + ',' +
+    element['staying'] + ',' + element['number_of_buildings'];
+
+  const value: RuleValue = {
+    geographicScore: element['output_geo_value'],
+    essenceScore: element['output_essence_value'],
+  };
+
+  const rule: Rule = {
+    key,
+    value,
+  };
+
+  return rule;
+};

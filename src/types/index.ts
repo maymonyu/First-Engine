@@ -2,4 +2,4 @@ export * from './cluster';
 export * from './building';
 export * from './coordinate';
 export * from './itur';
-export * from './rule';
+export * from './constitution';
