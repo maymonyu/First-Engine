@@ -7,5 +7,5 @@ export interface Cluster{
     staying: number;
     profession: string;
     numberOfBuildings: number;
-    geoBuildings: Coordinate[];
+    geoBuildings: Coordinate[][];
 }
