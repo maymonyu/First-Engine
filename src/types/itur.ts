@@ -1,4 +1,4 @@
-import {Coordinate} from './coordinate';
+import {Coordinate} from './';
 
 export interface Itur {
     index: number;
