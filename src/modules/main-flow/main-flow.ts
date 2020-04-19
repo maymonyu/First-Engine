@@ -14,5 +14,8 @@ export class MainFlow {
 
       const clustersWithIturim =
             clusters.map((cluster) => this.crossChecker.crossClusterWithIturim(cluster, iturim));
+
+      console.log('cluster with iturim:');
+      console.log(clustersWithIturim);
     }
 }

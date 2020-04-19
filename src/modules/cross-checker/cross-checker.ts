@@ -21,7 +21,7 @@ export class CrossChecker {
   private getIturimInsidePolygon(iturim: Itur[], polygon: Coordinate[]): Itur[] {
     if (!polygon || polygon.length < 3) {
       console.error(`can't search for iturim inside polygon: ${polygon}`);
-      return;
+      return [];
     }
 
     return iturim.filter((itur) => isPointInPolygon(itur.location, polygon));
