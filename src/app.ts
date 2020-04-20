@@ -1,10 +1,10 @@
-import {Cluster, Itur, Constitution} from './types';
-import {readClusters, readIturim, readConstitution} from './dataProviders/csvProvider';
+import {MainFlow} from './modules/main-flow/main-flow';
 
-const processData = async () => {
-  const clusters: Cluster[] = await readClusters();
-  const iturim: Itur[] = await readIturim();
-  const constitution: Constitution = await readConstitution();
-};
+// buildTvirim();
+// buildIturim();
+const main = new MainFlow();
+main.start();
 
-processData();
+export function sum(a: number, b: number): number {
+  return a + b;
+}
