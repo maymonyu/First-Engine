@@ -3,6 +3,38 @@ import {Itur} from '../types/itur';
 import {Coordinate} from '../types/coordinate';
 import {parseFile, ParserOptionsArgs} from 'fast-csv';
 
+function createCluster(element: any) {
+  const cluster: Cluster = {
+    ID: element['ID'],
+    hatzvaraQuality: element['hatzvara_quality'],
+    identification: element['Identification'],
+    staying: element['staying'],
+    profession: element['profession'],
+    numberOfBuildings: element['number_of_buildings'],
+    geoBuildings: element['geo_buildings'],
+  };
+
+  return cluster;
+}
+
+
+function createItur(element: any) {
+  const coordinate: Coordinate = {
+    longitude: element['Points_x'],
+    latitude: element['Points_y'],
+  };
+
+  const itur: Itur = {
+    index: element['index'],
+    location: coordinate,
+    profession: element['professions'],
+    tabuOwner: element['tabu_owner'],
+    names: element['names'],
+  };
+
+  return itur;
+}
+
 function readFile(fileName: string, parseOptions: ParserOptionsArgs, callback: Function) {
   const result: Array<any> = [];
 
@@ -47,34 +79,3 @@ export function buildIturim(): Itur[] {
   return iturim;
 }
 
-function createCluster(element: any) {
-  const cluster: Cluster = {
-    ID: element['ID'],
-    hatzvaraQuality: element['hatzvara_quality'],
-    identification: element['Identification'],
-    staying: element['staying'],
-    profession: element['profession'],
-    numberOfBuildings: element['number_of_buildings'],
-    geoBuildings: element['geo_buildings'],
-  };
-
-  return cluster;
-}
-
-
-function createItur(element: any) {
-  const coordinate: Coordinate = {
-    longitude: element['Points_x'],
-    latitude: element['Points_y'],
-  };
-
-  const itur: Itur = {
-    index: element['index'],
-    location: coordinate,
-    profession: element['professions'],
-    tabuOwner: element['tabu_owner'],
-    names: element['names'],
-  };
-
-  return itur;
-}
