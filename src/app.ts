@@ -5,3 +5,7 @@ import {MainFlow} from './modules/main-flow/main-flow';
 // buildIturim();
 const main = new MainFlow();
 main.start();
+
+export function sum(a: number, b: number): number {
+  return a + b;
+}
