@@ -1,10 +1,8 @@
-import {MainFlow} from './modules/main-flow/main-flow';
+import {MainFlow} from './modules/main-flow';
 
-// buildTvirim();
-// buildIturim();
 const main = new MainFlow();
-main.start();
+main.start().then(() => console.log('finished'));
 
 export function sum(a: number, b: number): number {
-  return a + b;
+    return a + b;
 }

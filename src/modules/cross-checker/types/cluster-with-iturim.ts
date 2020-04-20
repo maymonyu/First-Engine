@@ -1,4 +1,4 @@
-import {Cluster} from '../../../types/cluster';
+import {Cluster} from 'src/types';
 import {IturimOfPolygon} from './itur-with-polygon';
 
 export class ClusterWithIturim {
@@ -6,7 +6,7 @@ export class ClusterWithIturim {
     iturimWithPolygons: IturimOfPolygon[];
 
     constructor(cluster: Cluster, iturimWithPolygons: IturimOfPolygon[]) {
-      this.cluster = cluster;
-      this.iturimWithPolygons = iturimWithPolygons;
+        this.cluster = cluster;
+        this.iturimWithPolygons = iturimWithPolygons;
     }
 }

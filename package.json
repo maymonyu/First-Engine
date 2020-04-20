@@ -4,7 +4,7 @@
   "description": "first engine!!",
   "main": "test.js",
   "scripts": {
-    "start": "nodemon",
+    "start": "eslint --ext .ts src/ && nodemon",
     "build": "tsc",
     "test": "jest",
     "lint": "eslint --ext .ts src/ --fix"
@@ -20,8 +20,9 @@
   },
   "homepage": "https://github.com/maymonyu/First-Engine#readme",
   "dependencies": {
-    "csvtojson": "^2.0.10"
-    "geolib": "^3.2.1"
+    "csvtojson": "^2.0.10",
+    "geolib": "^3.2.1",
+    "terraformer-wkt-parser": "^1.2.1"
   },
   "devDependencies": {
     "@types/node": "^13.11.1",

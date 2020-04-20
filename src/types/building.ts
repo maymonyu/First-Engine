@@ -1,5 +1,9 @@
 import {Coordinate} from './';
 
-export interface Building {
-    coordinates: Coordinate[]
+export class Building {
+    coordinates: Coordinate[];
+
+    constructor(coordinates: Coordinate[]) {
+        this.coordinates = coordinates;
+    }
 }

@@ -1,10 +1,11 @@
 import {Building} from './';
 
 export interface Cluster {
-    ID: string;
-    hatzvaraQuality: string;
+    id: string;
+    clusteringQuality: string;
     identification: string;
-    staying: number;
+    minStaying: number;
+    maxStaying?: number;
     profession: string;
     numberOfBuildings: number;
     geoBuildings: Building[];
