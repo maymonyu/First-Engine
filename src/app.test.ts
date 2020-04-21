@@ -152,7 +152,7 @@ test('Set5: few iturim split between 2 buildings ', () => {
     const fifthItur = createIturExample({latitude: 32.071182, longitude: 34.805437}); // not in any
 
     const crossResult = crossChecker.crossClusterWithIturim(
-        cluster, [firstItur, secondItur, thirdItur, fourthItur, fifthItur]);
+            cluster, [firstItur, secondItur, thirdItur, fourthItur, fifthItur]);
 
     expect(crossResult.iturimWithPolygons.length).toBe(2);
     expect(crossResult.iturimWithPolygons[0].iturim.length).toBe(2);
