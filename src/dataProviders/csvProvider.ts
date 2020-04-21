@@ -10,7 +10,7 @@ const readCsvFile = async (filePath: string): Promise<any[]> => {
 export const readClusters = async (): Promise<Cluster[]> => {
   const clustersCsvData = await readCsvFile('./data/Tvirim.csv');
 
-  const clusters = clustersCsvData.map((clusterData) => createCluster(clusterData));
+  const clusters = clustersCsvData.map(createCluster);
 
   return clusters;
 };
@@ -18,7 +18,7 @@ export const readClusters = async (): Promise<Cluster[]> => {
 export const readIturim = async (): Promise<Itur[]> => {
   const IturimCsvData = await readCsvFile('./data/iturim.csv');
 
-  const iturim: Itur[] = IturimCsvData.map((iturData) => createItur(iturData));
+  const iturim: Itur[] = IturimCsvData.map(createItur);
 
   return iturim;
 };
@@ -27,7 +27,7 @@ export const readConstitution = async (): Promise<Constitution> => {
   const rulesCsvData = await readCsvFile('./data/Constitution.csv');
   const constitution: Constitution = {};
 
-  const rules: Rule[] = rulesCsvData.map((ruleData) => createRule(ruleData));
+  const rules: Rule[] = rulesCsvData.map(createRule);
   rules.forEach((rule) => constitution[rule.key] = rule.value);
 
   return constitution;
@@ -65,8 +65,13 @@ const createItur = (element: any): Itur => {
 };
 
 const createRule = (element: any): Rule => {
-  const key = element['hatzvara_quality'] + ',' + element['in_building_quality'] + ',' +
-    element['staying'] + ',' + element['number_of_buildings'];
+  const keyFields = [
+    'hatzvara_quality',
+    'in_building_quality',
+    'staying',
+    'number_of_buildings',
+  ];
+  const key = keyFields.map((fieldName) => element[fieldName]).join(',');
 
   const value: RuleValue = {
     geographicScore: element['output_geo_value'],
