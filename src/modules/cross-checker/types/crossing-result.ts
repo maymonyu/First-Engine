@@ -2,7 +2,7 @@ import {Cluster} from 'src/types';
 
 export interface CrossingResult {
     cluster: Cluster;
-    buildingsAssessmentSummary: number;
+    buildingsAssessmentSummary: string;
     contextToProfession: boolean;
-    outputEssenceValue: number;
+    outputEssenceValue: string;
 }
