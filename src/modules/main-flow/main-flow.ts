@@ -17,8 +17,9 @@ export class MainFlow {
 
         console.log(`there are ${clustersWithIturim.length} clusters.`);
         if (clustersWithIturim.length > 0) {
-            console.log(`first cluster: ${clustersWithIturim[0].cluster} 
-            with iturim: ${clustersWithIturim[0].iturimWithPolygons}`);
+            console.log(`first cluster: ${clustersWithIturim[0]} 
+            with first building's iturim: ${clustersWithIturim[0].geoBuildings[0].iturim}
+            and first building score ${clustersWithIturim[0].geoBuildings[0].score}`);
         }
     }
 }

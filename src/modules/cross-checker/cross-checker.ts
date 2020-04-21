@@ -1,20 +1,20 @@
 import {isPointInPolygon} from 'geolib';
 
-import {IturimOfPolygon, ClusterWithIturim} from './index';
 import {Cluster, Itur, Coordinate} from 'src/types';
 
 export class CrossChecker {
-    crossClusterWithIturim(cluster: Cluster, iturim: Itur[]): ClusterWithIturim {
-        const clusterBuildingsWithIturim: IturimOfPolygon[] = [];
+    crossClusterWithIturim(cluster: Cluster, iturim: Itur[]): Cluster {
         for (const building of cluster.geoBuildings) {
             const relevantIturim = this.getIturimInsidePolygon(iturim, building.coordinates);
             if (!relevantIturim || relevantIturim.length === 0) {
                 continue;
             }
-            const buildingWithIturim = new IturimOfPolygon(building.coordinates, relevantIturim);
-            clusterBuildingsWithIturim.push(buildingWithIturim);
+
+            building.iturim = relevantIturim;
+            building.score = 1;
         }
-        return new ClusterWithIturim(cluster, clusterBuildingsWithIturim);
+
+        return cluster;
     }
 
     private getIturimInsidePolygon(iturim: Itur[], polygon: Coordinate[]): Itur[] {
