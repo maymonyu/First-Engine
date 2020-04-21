@@ -1,10 +1,10 @@
-import {Cluster, Coordinate, Itur, Building} from './types/index';
+import {Cluster, Point, Itur, Building} from './types/index';
 import {crossClusterWithIturim} from './modules/cross-checker/cross-checker';
 
-function createIturExample(coordinate: Coordinate): Itur {
+function createIturExample(points: Point): Itur {
     return {
         index: 123,
-        location: coordinate,
+        location: points,
         profession: 'assassin',
         tabuOwner: 'moshe',
         names: 'bla',
@@ -24,9 +24,9 @@ function createClusterExample(geoBuildings: Building[]): Cluster {
 };
 
 test('Set1: basic itur inside cluster', () => {
-    const point1 = new Coordinate(31.3018, 34.2754);
-    const point2 = new Coordinate(31.3011, 34.2754);
-    const point3 = new Coordinate(31.3012, 34.2746);
+    const point1 = new Point(31.3018, 34.2754);
+    const point2 = new Point(31.3011, 34.2754);
+    const point3 = new Point(31.3012, 34.2746);
     const building = new Building([point1, point2, point3]);
     const cluster = createClusterExample([building]);
 
@@ -35,14 +35,14 @@ test('Set1: basic itur inside cluster', () => {
 
     expect(crossBuildings.length).toBe(1);
     expect(crossBuildings[0].iturim ? crossBuildings[0].iturim.length : -1).toBe(1);
-    expect(crossBuildings[0].coordinates.length).toBe(3);
+    expect(crossBuildings[0].polygon.length).toBe(3);
     expect(crossBuildings[0].iturim ? crossBuildings[0].iturim[0].location.latitude : -1).toBe(31.3016);
 });
 
 test('Set1: basic itur not inside cluster', () => {
-    const point1 = new Coordinate(31.3018, 34.2754);
-    const point2 = new Coordinate(31.3011, 34.2754);
-    const point3 = new Coordinate(31.3012, 34.2746);
+    const point1 = new Point(31.3018, 34.2754);
+    const point2 = new Point(31.3011, 34.2754);
+    const point3 = new Point(31.3012, 34.2746);
     const building = new Building([point1, point2, point3]);
     const cluster = createClusterExample([building]);
 
@@ -51,16 +51,16 @@ test('Set1: basic itur not inside cluster', () => {
 
     expect(crossBuildings.length).toBe(1);
     expect(crossBuildings[0].iturim ? 1 : 0).toBe(0);
-    expect(crossBuildings[0].coordinates.length).toBe(3);
+    expect(crossBuildings[0].polygon.length).toBe(3);
 });
 
 test('Set2: itur with 2 buildings when in the second one', () => {
-    const point1 = new Coordinate(31.3029, 34.2731);
-    const point2 = new Coordinate(31.3017, 34.2729);
-    const point3 = new Coordinate(31.3023, 34.2740);
-    const point4 = new Coordinate(31.3018, 34.2754);
-    const point5 = new Coordinate(31.3011, 34.2754);
-    const point6 = new Coordinate(31.3012, 34.2746);
+    const point1 = new Point(31.3029, 34.2731);
+    const point2 = new Point(31.3017, 34.2729);
+    const point3 = new Point(31.3023, 34.2740);
+    const point4 = new Point(31.3018, 34.2754);
+    const point5 = new Point(31.3011, 34.2754);
+    const point6 = new Point(31.3012, 34.2746);
 
     const building1 = new Building([point1, point2, point3]);
     const building2 = new Building([point4, point5, point6]);
@@ -71,19 +71,19 @@ test('Set2: itur with 2 buildings when in the second one', () => {
 
     expect(crossBuildings.length).toBe(2);
     expect(crossBuildings[0].iturim ? 1 : 0).toBe(0);
-    expect(crossBuildings[0].coordinates.length).toBe(3);
-    expect(crossBuildings[1].coordinates.length).toBe(3);
+    expect(crossBuildings[0].polygon.length).toBe(3);
+    expect(crossBuildings[1].polygon.length).toBe(3);
     expect(crossBuildings[1].iturim ? 1 : 0).toBe(1);
     expect(crossBuildings[1].iturim ? crossBuildings[1].iturim[0].location.latitude : 0).toBe(31.3016);
 });
 
 test('Set2: itur that does not appear in both buildings', () => {
-    const point1 = new Coordinate(31.3029, 34.2731);
-    const point2 = new Coordinate(31.3017, 34.2729);
-    const point3 = new Coordinate(31.3023, 34.2740);
-    const point4 = new Coordinate(31.3018, 34.2754);
-    const point5 = new Coordinate(31.3011, 34.2754);
-    const point6 = new Coordinate(31.3012, 34.2746);
+    const point1 = new Point(31.3029, 34.2731);
+    const point2 = new Point(31.3017, 34.2729);
+    const point3 = new Point(31.3023, 34.2740);
+    const point4 = new Point(31.3018, 34.2754);
+    const point5 = new Point(31.3011, 34.2754);
+    const point6 = new Point(31.3012, 34.2746);
 
     const building1 = new Building([point1, point2, point3]);
     const building2 = new Building([point4, point5, point6]);
@@ -97,11 +97,11 @@ test('Set2: itur that does not appear in both buildings', () => {
     expect(crossBuildings[1].iturim ? 1 : 0).toBe(0);
 });
 
-test('Set3: changing location , few iturim , polygon have 4 coordinates', () => {
-    const point1 = new Coordinate(32.071341, 34.805351);
-    const point2 = new Coordinate(32.071382, 34.805109);
-    const point3 = new Coordinate(32.071223, 34.805077);
-    const point4 = new Coordinate(32.071164, 34.805324);
+test('Set3: changing location , few iturim , polygon have 4 points', () => {
+    const point1 = new Point(32.071341, 34.805351);
+    const point2 = new Point(32.071382, 34.805109);
+    const point3 = new Point(32.071223, 34.805077);
+    const point4 = new Point(32.071164, 34.805324);
     const building = new Building([point1, point2, point3, point4]);
     const cluster = createClusterExample([building]);
 
@@ -111,16 +111,16 @@ test('Set3: changing location , few iturim , polygon have 4 coordinates', () => 
 
     expect(crossBuildings.length).toBe(1);
     expect(crossBuildings[0].iturim ? crossBuildings[0].iturim.length : -1).toBe(1);
-    expect(crossBuildings[0].coordinates.length).toBe(4);
+    expect(crossBuildings[0].polygon.length).toBe(4);
     expect(crossBuildings[0].iturim ? crossBuildings[0].iturim[0].location.latitude : -1).toBe(32.071291);
 });
 
 
 test('Set4: few iturim inside the same building', () => {
-    const point1 = new Coordinate(32.071341, 34.805351);
-    const point2 = new Coordinate(32.071382, 34.805109);
-    const point3 = new Coordinate(32.071223, 34.805077);
-    const point4 = new Coordinate(32.071164, 34.805324);
+    const point1 = new Point(32.071341, 34.805351);
+    const point2 = new Point(32.071382, 34.805109);
+    const point3 = new Point(32.071223, 34.805077);
+    const point4 = new Point(32.071164, 34.805324);
     const building = new Building([point1, point2, point3, point4]);
     const cluster = createClusterExample([building]);
 
@@ -135,14 +135,14 @@ test('Set4: few iturim inside the same building', () => {
 
     expect(crossBuildings.length).toBe(1);
     expect(crossBuildings[0].iturim ? crossBuildings[0].iturim.length : -1).toBe(4);
-    expect(crossBuildings[0].coordinates.length).toBe(4);
+    expect(crossBuildings[0].polygon.length).toBe(4);
 });
 
 test('Set4: few iturim outside the building none should be considered', () => {
-    const point1 = new Coordinate(32.071341, 34.805351);
-    const point2 = new Coordinate(32.071382, 34.805109);
-    const point3 = new Coordinate(32.071223, 34.805077);
-    const point4 = new Coordinate(32.071164, 34.805324);
+    const point1 = new Point(32.071341, 34.805351);
+    const point2 = new Point(32.071382, 34.805109);
+    const point3 = new Point(32.071223, 34.805077);
+    const point4 = new Point(32.071164, 34.805324);
     const building = new Building([point1, point2, point3, point4]);
     const cluster = createClusterExample([building]);
 
@@ -157,20 +157,20 @@ test('Set4: few iturim outside the building none should be considered', () => {
 
     expect(crossBuildings.length).toBe(1);
     expect(crossBuildings[0].iturim ? crossBuildings[0].iturim.length : 0).toBe(0);
-    expect(crossBuildings[0].coordinates.length).toBe(4);
+    expect(crossBuildings[0].polygon.length).toBe(4);
 });
 
 test('Set5: few iturim split between 2 buildings', () => {
-    const point1 = new Coordinate(32.071341, 34.805351);
-    const point2 = new Coordinate(32.071382, 34.805109);
-    const point3 = new Coordinate(32.071223, 34.805077);
-    const point4 = new Coordinate(32.071164, 34.805324);
+    const point1 = new Point(32.071341, 34.805351);
+    const point2 = new Point(32.071382, 34.805109);
+    const point3 = new Point(32.071223, 34.805077);
+    const point4 = new Point(32.071164, 34.805324);
     const building1 = new Building([point1, point2, point3, point4]);
 
-    const point5 = new Coordinate(32.071241, 34.805608);
-    const point6 = new Coordinate(32.071114, 34.805855);
-    const point7 = new Coordinate(32.071014, 34.805807);
-    const point8 = new Coordinate(32.071050, 34.805544);
+    const point5 = new Point(32.071241, 34.805608);
+    const point6 = new Point(32.071114, 34.805855);
+    const point7 = new Point(32.071014, 34.805807);
+    const point8 = new Point(32.071050, 34.805544);
     const building2 = new Building([point5, point6, point7, point8]);
     const cluster = createClusterExample([building1, building2]);
 

@@ -1,10 +1,10 @@
 import {isPointInPolygon} from 'geolib';
 
-import {Cluster, Itur, Coordinate} from 'src/types';
+import {Cluster, Itur, Point} from 'src/types';
 
 export function crossClusterWithIturim(cluster: Cluster, iturim: Itur[]): Cluster {
     for (const building of cluster.geoBuildings) {
-        const relevantIturim = getIturimInsidePolygon(iturim, building.coordinates);
+        const relevantIturim = getIturimInsidePolygon(iturim, building.polygon);
         if (!relevantIturim || relevantIturim.length === 0) {
             continue;
         }
@@ -16,7 +16,7 @@ export function crossClusterWithIturim(cluster: Cluster, iturim: Itur[]): Cluste
     return cluster;
 }
 
-function getIturimInsidePolygon(iturim: Itur[], polygon: Coordinate[]): Itur[] {
+function getIturimInsidePolygon(iturim: Itur[], polygon: Point[]): Itur[] {
     if (!polygon || polygon.length < 3) {
         console.error(`can't search for iturim inside polygon: ${polygon}`);
         return [];

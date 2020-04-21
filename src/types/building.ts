@@ -1,12 +1,12 @@
-import {Coordinate, Itur} from './';
+import {Point as Point, Itur} from './';
 
 export class Building {
-    coordinates: Coordinate[];
+    polygon: Point[];
     score: number;
     iturim?: Itur[];
 
-    constructor(coordinates: Coordinate[]) {
-        this.coordinates = coordinates;
+    constructor(polygon: Point[]) {
+        this.polygon = polygon;
         this.score = 0;
     }
 }

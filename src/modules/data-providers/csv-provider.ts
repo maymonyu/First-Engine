@@ -4,7 +4,7 @@ import terraformer from 'terraformer-wkt-parser';
 import {
     Cluster,
     Itur,
-    Coordinate,
+    Point,
     Rule,
     RuleValue,
     Constitution,
@@ -14,14 +14,14 @@ import {
 
 type CsvLine = {[propertyName: string]: string};
 
-function extractCoordinates(parsedPolygon: GeoJSON.GeometryObject): Coordinate[] {
+function extractPoints(parsedPolygon: GeoJSON.GeometryObject): Point[] {
     parsedPolygon = parsedPolygon as GeoJSON.DirectGeometryObject;
 
     // since the polygons have the form of 'Polygon((..))' instead of 'Polgon(..)',
     // we take only the first cell
     const positions = parsedPolygon.coordinates[0] as number[][];
-    const coordinates = positions.map((position) => new Coordinate(position[0], position[1]));
-    return coordinates;
+    const points = positions.map((position) => new Point(position[0], position[1]));
+    return points;
 }
 
 function parseBuildings(buildingsAsString: string): Building[] {
@@ -29,8 +29,8 @@ function parseBuildings(buildingsAsString: string): Building[] {
         .split('\'')
         .filter((stringShape) => stringShape.includes('POLYGON'))
         .map(terraformer.parse)
-        .map(extractCoordinates)
-        .map((coordinates) => new Building(coordinates));
+        .map(extractPoints)
+        .map((points) => new Building(points));
     return polygons;
 }
 
@@ -67,14 +67,14 @@ function createCluster(element: CsvLine): Cluster {
 };
 
 function createItur(element: CsvLine): Itur {
-    const coordinate: Coordinate = {
+    const point: Point = {
         latitude: Number(element['Points_x']),
         longitude: Number(element['Points_y']),
     };
 
     const itur: Itur = {
         index: Number(element['index']),
-        location: coordinate,
+        location: point,
         profession: element['professions'],
         tabuOwner: element['tabu_owner'],
         names: element['names'],
