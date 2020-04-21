@@ -19,7 +19,7 @@ export const readIturim = async (): Promise<Itur[]> => {
 
 export const readConstitution = async (): Promise<Constitution> => {
   const rulesCsvData = await readCsvFile('./data/Constitution.csv');
-  const constitution: Constitution = {};
+  const constitution: Constitution = Object.create(null);
 
   const rules: Rule[] = rulesCsvData.map(createRule);
   rules.forEach((rule) => constitution[rule.key] = rule.value);
