@@ -1,4 +1,4 @@
-import {Coordinate} from './coordinate';
+import {Building} from './';
 
 export interface Cluster {
     ID: string;
@@ -7,5 +7,5 @@ export interface Cluster {
     staying: number;
     profession: string;
     numberOfBuildings: number;
-    geoBuildings: Coordinate[];
+    geoBuildings: Building[];
 }

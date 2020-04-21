@@ -73,7 +73,7 @@ module.exports = {
         // 'dot-location': 'off',
         // 'dot-notation': 'off',
         // 'eqeqeq': 'off',
-        'guard-for-in': 'error',
+        //'guard-for-in': 'error',
         // 'no-alert': 'off',
         'no-caller': 'error',
         // 'no-case-declarations': 'error', // eslint:recommended
@@ -149,8 +149,8 @@ module.exports = {
         // 'no-undef': 'error', // eslint:recommended
         // 'no-undef-init': 'off',
         // 'no-undefined': 'off',
-        'no-unused-vars': ['error', { args: 'none' }], // eslint:recommended
         // 'no-use-before-define': 'off',
+        "@typescript-eslint/no-use-before-define": 'off',
 
         // Node.js and CommonJS
         // http://eslint.org/docs/rules/#nodejs-and-commonjs
@@ -219,7 +219,7 @@ module.exports = {
         // 'lines-around-comment': 'off',
         // 'max-depth': 'off',
         'max-len': ['error', {
-            code: 80,
+            code: 120,
             tabWidth: 2,
             ignoreUrls: true,
             ignorePattern: 'goog\.(module|require)',
@@ -271,7 +271,6 @@ module.exports = {
         // 'padding-line-between-statements': 'off',
         'quote-props': ['error', 'consistent'],
         'quotes': ['error', 'single', { allowTemplateLiterals: true }],
-        'require-jsdoc': 0,
         'semi': 'error',
         'semi-spacing': 'error',
         // 'semi-style': 'off',

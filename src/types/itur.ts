@@ -1,6 +1,6 @@
-import {Coordinate} from './coordinate';
+import {Coordinate} from './';
 
-export interface Itur{
+export interface Itur {
     index: number;
     location: Coordinate;
     profession: string;

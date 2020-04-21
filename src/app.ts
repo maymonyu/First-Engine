@@ -1,8 +1,10 @@
-console.log('hellod boyy');
+import {Cluster, Itur, Constitution} from './types';
+import {readClusters, readIturim, readConstitution} from './dataProviders/csvProvider';
 
-const mysum = 'uri';
-console.log(mysum);
+const readData = async (): Promise<void> => {
+  const clusters: Cluster[] = await readClusters();
+  const iturim: Itur[] = await readIturim();
+  const constitution: Constitution = await readConstitution();
+};
 
-export function sum(a: number, b: number): number {
-  return a + b;
-}
+readData();
