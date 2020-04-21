@@ -1,8 +1,8 @@
-import { Cluster } from './types/cluster';
-import { Coordinate } from './types/coordinate';
-import { CrossChecker } from './modules/cross-checker/cross-checker';
-import { Itur } from './types/itur';
-import { Building } from './types';
+import {Cluster} from './types/cluster';
+import {Coordinate} from './types/coordinate';
+import {CrossChecker} from './modules/cross-checker/cross-checker';
+import {Itur} from './types/itur';
+import {Building} from './types';
 
 const crossChecker = new CrossChecker();
 
@@ -35,7 +35,7 @@ test('Set1: basic itur inside cluster', () => {
     const building = new Building([point1, point2, point3]);
     const cluster = createClusterExample([building]);
 
-    const itur = createIturExample({ latitude: 31.3016, longitude: 34.2752 });
+    const itur = createIturExample({latitude: 31.3016, longitude: 34.2752});
     const crossBuildings = crossChecker.crossClusterWithIturim(cluster, [itur]).geoBuildings;
 
     expect(crossBuildings.length).toBe(1);
@@ -51,7 +51,7 @@ test('Set1: basic itur not inside cluster', () => {
     const building = new Building([point1, point2, point3]);
     const cluster = createClusterExample([building]);
 
-    const itur = createIturExample({ latitude: 38.8888, longitude: 34.2752 });
+    const itur = createIturExample({latitude: 38.8888, longitude: 34.2752});
     const crossBuildings = crossChecker.crossClusterWithIturim(cluster, [itur]).geoBuildings;
 
     expect(crossBuildings.length).toBe(1);
@@ -71,7 +71,7 @@ test('Set2: itur with 2 buildings when in the second one', () => {
     const building2 = new Building([point4, point5, point6]);
     const cluster = createClusterExample([building1, building2]);
 
-    const itur = createIturExample({ latitude: 31.3016, longitude: 34.2752 });
+    const itur = createIturExample({latitude: 31.3016, longitude: 34.2752});
     const crossBuildings = crossChecker.crossClusterWithIturim(cluster, [itur]).geoBuildings;
 
     expect(crossBuildings.length).toBe(2);
@@ -94,7 +94,7 @@ test('Set2: itur that does not appear in both buildings', () => {
     const building2 = new Building([point4, point5, point6]);
     const cluster = createClusterExample([building1, building2]);
 
-    const itur = createIturExample({ latitude: 33.3016, longitude: 34.2752 });
+    const itur = createIturExample({latitude: 33.3016, longitude: 34.2752});
     const crossBuildings = crossChecker.crossClusterWithIturim(cluster, [itur]).geoBuildings;
 
     expect(crossBuildings.length).toBe(2);
@@ -110,8 +110,8 @@ test('Set3: changing location , few iturim , polygon have 4 coordinates', () => 
     const building = new Building([point1, point2, point3, point4]);
     const cluster = createClusterExample([building]);
 
-    const firstItur = createIturExample({ latitude: 32.071291, longitude: 34.805200 }); // inside poly
-    const secondItur = createIturExample({ latitude: 31.30161, longitude: 34.2752 }); // not inside
+    const firstItur = createIturExample({latitude: 32.071291, longitude: 34.805200}); // inside poly
+    const secondItur = createIturExample({latitude: 31.30161, longitude: 34.2752}); // not inside
     const crossBuildings = crossChecker.crossClusterWithIturim(cluster, [firstItur, secondItur]).geoBuildings;
 
     expect(crossBuildings.length).toBe(1);
@@ -129,11 +129,14 @@ test('Set4: few iturim inside the same building', () => {
     const building = new Building([point1, point2, point3, point4]);
     const cluster = createClusterExample([building]);
 
-    const firstItur = createIturExample({ latitude: 32.071291, longitude: 34.805200 });
-    const secondItur = createIturExample({ latitude: 32.071273, longitude: 34.805088 });
-    const thirdItur = createIturExample({ latitude: 32.071218, longitude: 34.805313 });
-    const fourthItur = createIturExample({ latitude: 32.071332, longitude: 34.805222 });
-    const crossBuildings = crossChecker.crossClusterWithIturim(cluster, [firstItur, secondItur, thirdItur, fourthItur]).geoBuildings;
+    const firstItur = createIturExample({latitude: 32.071291, longitude: 34.805200});
+    const secondItur = createIturExample({latitude: 32.071273, longitude: 34.805088});
+    const thirdItur = createIturExample({latitude: 32.071218, longitude: 34.805313});
+    const fourthItur = createIturExample({latitude: 32.071332, longitude: 34.805222});
+    const crossBuildings = crossChecker.crossClusterWithIturim(
+            cluster,
+            [firstItur, secondItur, thirdItur, fourthItur],
+    ).geoBuildings;
 
     expect(crossBuildings.length).toBe(1);
     expect(crossBuildings[0].iturim ? crossBuildings[0].iturim.length : -1).toBe(4);
@@ -148,11 +151,14 @@ test('Set4: few iturim around the building none should be considered', () => {
     const building = new Building([point1, point2, point3, point4]);
     const cluster = createClusterExample([building]);
 
-    const firstItur = createIturExample({ latitude: 32.071405, longitude: 34.804975 });
-    const secondItur = createIturExample({ latitude: 32.071195, longitude: 34.804964 });
-    const thirdItur = createIturExample({ latitude: 32.071136, longitude: 34.805431 });
-    const fourthItur = createIturExample({ longitude: 32.071364, latitude: 34.805447 });
-    const crossBuildings = crossChecker.crossClusterWithIturim(cluster, [firstItur, secondItur, thirdItur, fourthItur]).geoBuildings;
+    const firstItur = createIturExample({latitude: 32.071405, longitude: 34.804975});
+    const secondItur = createIturExample({latitude: 32.071195, longitude: 34.804964});
+    const thirdItur = createIturExample({latitude: 32.071136, longitude: 34.805431});
+    const fourthItur = createIturExample({longitude: 32.071364, latitude: 34.805447});
+    const crossBuildings = crossChecker.crossClusterWithIturim(
+            cluster,
+            [firstItur, secondItur, thirdItur, fourthItur],
+    ).geoBuildings;
 
     expect(crossBuildings.length).toBe(1);
     expect(crossBuildings[0].iturim ? crossBuildings[0].iturim.length : 0).toBe(0);
@@ -173,13 +179,13 @@ test('Set5: few iturim split between 2 buildings', () => {
     const building2 = new Building([point5, point6, point7, point8]);
     const cluster = createClusterExample([building1, building2]);
 
-    const firstItur = createIturExample({ latitude: 32.071291, longitude: 34.805200 });// in first
-    const secondItur = createIturExample({ latitude: 32.071273, longitude: 34.805088 }); // in first
-    const thirdItur = createIturExample({ latitude: 32.071155, longitude: 34.805683 }); // in second
-    const fourthItur = createIturExample({ latitude: 32.071086, longitude: 34.805619 }); // in second
-    const fifthItur = createIturExample({ latitude: 32.071182, longitude: 34.805437 }); // not in any
+    const firstItur = createIturExample({latitude: 32.071291, longitude: 34.805200});// in first
+    const secondItur = createIturExample({latitude: 32.071273, longitude: 34.805088}); // in first
+    const thirdItur = createIturExample({latitude: 32.071155, longitude: 34.805683}); // in second
+    const fourthItur = createIturExample({latitude: 32.071086, longitude: 34.805619}); // in second
+    const fifthItur = createIturExample({latitude: 32.071182, longitude: 34.805437}); // not in any
     const crossBuildings = crossChecker.crossClusterWithIturim(cluster,
-        [firstItur, secondItur, thirdItur, fourthItur, fifthItur]).geoBuildings;
+            [firstItur, secondItur, thirdItur, fourthItur, fifthItur]).geoBuildings;
 
     expect(crossBuildings.length).toBe(2);
     expect(crossBuildings[0].iturim ? crossBuildings[0].iturim.length : 0).toBe(2);
@@ -187,6 +193,6 @@ test('Set5: few iturim split between 2 buildings', () => {
     expect(crossBuildings[0].iturim ? crossBuildings[0].iturim[1].location.latitude : 0).toBe(32.071273);
     expect(crossBuildings[1].iturim ? crossBuildings[1].iturim.length : 0).toBe(2);
     expect(crossBuildings[1].iturim ? crossBuildings[1].iturim[0].location.latitude : 0).toBe(32.071155);
-    expect(crossBuildings[1].iturim ? crossBuildings[1].iturim[1].location.latitude : 0).toBe(32.071086);    
+    expect(crossBuildings[1].iturim ? crossBuildings[1].iturim[1].location.latitude : 0).toBe(32.071086);
 });
 
