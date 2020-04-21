@@ -1,7 +1,16 @@
 import csv from 'csvtojson';
 import terraformer from 'terraformer-wkt-parser';
 
-import {Cluster, Itur, Coordinate, Rule, RuleValue, Constitution, Building} from '../../types';
+import {
+    Cluster,
+    Itur,
+    Coordinate,
+    Rule,
+    RuleValue,
+    Constitution,
+    Building,
+    StayingInterval,
+} from '../../types';
 
 type CsvLine = {[propertyName: string]: string};
 
@@ -15,42 +24,40 @@ function extractCoordinates(parsedPolygon: GeoJSON.GeometryObject): Coordinate[]
     return coordinates;
 }
 
-function parseBuildings(polygonString: string): Building[] {
-    const stringPolygons: string[] = polygonString.split('\'');
-    stringPolygons.shift();
-    stringPolygons.pop();
-    const polygons = stringPolygons
-        .filter((stringPolygon) => stringPolygon.includes('POLYGON'))
-        .map((stringPolygon) => terraformer.parse(stringPolygon))
+function parseBuildings(buildingsAsString: string): Building[] {
+    const polygons = buildingsAsString
+        .split('\'')
+        .filter((stringShape) => stringShape.includes('POLYGON'))
+        .map(terraformer.parse)
         .map(extractCoordinates)
         .map((coordinates) => new Building(coordinates));
     return polygons;
 }
 
-function parseStaying(stayingString: string): [number, number] {
+function parseStaying(stayingString: string): StayingInterval {
     const range = stayingString.split('_');
     if (range.length === 3) {
-        return [Number(range[0]), Number(range[2])];
+        return new StayingInterval(Number(range[0]), Number(range[2]));
     }
     const minStaying = stayingString.split('+');
     if (minStaying.length > 0) {
-        return [Number(minStaying[0]), NaN];
+        return new StayingInterval(Number(minStaying[0]));
     }
+
     console.error(`'staying' property is expected to be in the format:
         'fromNumber_to_toNumber' or 'number+'. Got: ${stayingString}`);
-    return [NaN, NaN];
+    return new StayingInterval(NaN);
 }
 
 function createCluster(element: CsvLine): Cluster {
     const buildings = parseBuildings(element['geo_buildings']);
-    const [parsedMinStaying, parsedMaxStaying] = parseStaying(element['staying']);
+    const parsedStayingInterval = parseStaying(element['staying']);
 
     const cluster: Cluster = {
         id: element['ID'],
         clusteringQuality: element['hatzvara_quality'],
         identification: element['Identification'],
-        minStaying: parsedMinStaying,
-        maxStaying: parsedMaxStaying,
+        stayingInterval: parsedStayingInterval,
         profession: element['profession'],
         numberOfBuildings: Number(element['number_of_buildings']),
         geoBuildings: buildings,
@@ -104,7 +111,7 @@ function readCsvFile(filePath: string): PromiseLike<CsvLine[]> {
 export async function readClusters(): Promise<Cluster[]> {
     const clustersCsvData = await readCsvFile('./data/Tvirim.csv');
 
-    const clusters = clustersCsvData.map((clusterData) => createCluster(clusterData));
+    const clusters = clustersCsvData.map(createCluster);
 
     return clusters;
 };
@@ -112,7 +119,7 @@ export async function readClusters(): Promise<Cluster[]> {
 export async function readIturim(): Promise<Itur[]> {
     const IturimCsvData = await readCsvFile('./data/iturim.csv');
 
-    const iturim: Itur[] = IturimCsvData.map((iturData) => createItur(iturData));
+    const iturim: Itur[] = IturimCsvData.map(createItur);
 
     return iturim;
 };
@@ -121,7 +128,7 @@ export async function readConstitution(): Promise<Constitution> {
     const rulesCsvData = await readCsvFile('./data/Constitution.csv');
     const constitution: Constitution = {};
 
-    const rules: Rule[] = rulesCsvData.map((ruleData) => createRule(ruleData));
+    const rules: Rule[] = rulesCsvData.map(createRule);
     rules.forEach((rule) => constitution[rule.key] = rule.value);
 
     return constitution;
