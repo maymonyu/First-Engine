@@ -4,7 +4,7 @@
   "description": "first engine!!",
   "main": "test.js",
   "scripts": {
-    "start": "eslint --ext .ts src/ && nodemon",
+    "start": "nodemon",
     "build": "tsc",
     "test": "jest",
     "lint": "eslint --ext .ts src/ --fix"
