@@ -1,12 +1,6 @@
 import csv from 'csvtojson';
 import {Cluster, Itur, Coordinate, Rule, RuleValue, Constitution} from '../types';
 
-const readCsvFile = async (filePath: string): Promise<any[]> => {
-  const data: any[] = await csv().fromFile(filePath);
-
-  return data;
-};
-
 export const readClusters = async (): Promise<Cluster[]> => {
   const clustersCsvData = await readCsvFile('./data/Tvirim.csv');
 
@@ -31,6 +25,13 @@ export const readConstitution = async (): Promise<Constitution> => {
   rules.forEach((rule) => constitution[rule.key] = rule.value);
 
   return constitution;
+};
+
+
+const readCsvFile = async (filePath: string): Promise<any[]> => {
+  const data: any[] = await csv().fromFile(filePath);
+
+  return data;
 };
 
 const createCluster = (element: any): Cluster => {

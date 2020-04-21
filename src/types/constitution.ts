@@ -1,5 +1,5 @@
 export interface Constitution {
-    [key: string] : RuleValue;
+    [key: string]: RuleValue;
 }
 
 export interface Rule {
@@ -8,6 +8,6 @@ export interface Rule {
 }
 
 export interface RuleValue {
-    geographicScore: string,
-    essenceScore: string
+    geographicScore: string;
+    essenceScore: string;
 }

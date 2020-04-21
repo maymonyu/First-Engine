@@ -150,6 +150,7 @@ module.exports = {
         // 'no-undef-init': 'off',
         // 'no-undefined': 'off',
         // 'no-use-before-define': 'off',
+        "@typescript-eslint/no-use-before-define": 'off',
 
         // Node.js and CommonJS
         // http://eslint.org/docs/rules/#nodejs-and-commonjs
