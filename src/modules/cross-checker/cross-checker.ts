@@ -1,6 +1,6 @@
-import {isPointInPolygon} from 'geolib';
+import { isPointInPolygon } from 'geolib';
 
-import {Cluster, Itur, Coordinate} from 'src/types';
+import { Cluster, Itur, Coordinate } from 'src/types';
 
 export class CrossChecker {
     crossClusterWithIturim(cluster: Cluster, iturim: Itur[]): Cluster {
@@ -14,6 +14,24 @@ export class CrossChecker {
             building.score = 1;
         }
 
+        return cluster;
+    }
+
+    CrossIdentification(cluster: Cluster): Cluster {
+        for (const building of cluster.geoBuildings) {
+            const iturim: Itur[] = building.iturim ? building.iturim : [];
+            let factor: number = -1;
+
+            if (!iturim.length) { continue; }
+
+            for (const itur of iturim) {
+                if (itur.tabuOwner === cluster.identification) {
+                    factor = 1
+                }
+            }
+            building.score += factor;
+        }
+        
         return cluster;
     }
 
