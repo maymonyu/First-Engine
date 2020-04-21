@@ -1,6 +1,6 @@
+import {Cluster, Constitution} from 'src/types';
 import {CrossingResult} from '../cross-checker/types/crossing-result';
 
-import {Cluster, Itur, Coordinate, Constitution} from 'src/types';
 
 export class Grader {
     private constitution: Constitution;
@@ -9,21 +9,22 @@ export class Grader {
         this.constitution = constitution;
     }
 
-    gradeUsingConstituition(crossingResult: CrossingResult): CrossingResult {
-        const constitutionKey = this.createKey(crossingResult);
-        const constitutionValue = this.constitution[constitutionKey];
+    gradeUsingConstituition(cluster: Cluster): CrossingResult {
+        const key = this.createKey(cluster);
+        const value = this.constitution[key];
 
-        crossingResult.outputEssenceValue = constitutionValue.essenceScore;
-        crossingResult.buildingsAssessmentSummary = constitutionValue.geographicScore;
+        // todo validate value
 
-        return crossingResult;
+        const result = new CrossingResult(cluster, value.geographicScore, value.essenceScore);
+
+        return result;
     }
 
-    private createKey(crossingResult: CrossingResult): string {
+    private createKey(cluster: Cluster): string {
         const {clusteringQuality, inBuildingQuality, minStaying,
-            maxStaying, numberOfBuildings} = crossingResult.cluster;
+            maxStaying, numberOfBuildings} = cluster;
 
-        return clusteringQuality + ',' + inBuildingQuality + ','+
-        minStaying + '_to_' + maxStaying + ',' + numberOfBuildings;
+        return clusteringQuality + ',' + inBuildingQuality + ',' +
+            minStaying + '_to_' + maxStaying + ',' + numberOfBuildings;
     }
 }
