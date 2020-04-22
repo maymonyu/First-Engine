@@ -191,7 +191,7 @@ module.exports = {
         // 'id-length': 'off',
         // 'id-match': 'off',
         'indent': [
-            'error', 2, {
+            'error', 4, {
                 'CallExpression': {
                     'arguments': 2,
                 },
@@ -203,7 +203,7 @@ module.exports = {
                     'body': 1,
                     'parameters': 2,
                 },
-                'MemberExpression': 2,
+                'MemberExpression': 1,
                 'ObjectExpression': 1,
                 'SwitchCase': 1,
                 'ignoredNodes': [

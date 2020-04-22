@@ -1,10 +1,3 @@
-import {Cluster, Itur, Constitution} from './types';
-import {readClusters, readIturim, readConstitution} from './dataProviders/csvProvider';
+import * as mainFlow from './modules/main-flow';
 
-const readData = async (): Promise<void> => {
-  const clusters: Cluster[] = await readClusters();
-  const iturim: Itur[] = await readIturim();
-  const constitution: Constitution = await readConstitution();
-};
-
-readData();
+mainFlow.start().then(() => console.log('finished'));
