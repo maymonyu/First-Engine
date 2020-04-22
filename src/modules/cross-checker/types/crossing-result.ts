@@ -1,8 +1,17 @@
 import {Cluster} from 'src/types';
 
-export interface CrossingResult {
+export class CrossingResult {
     cluster: Cluster;
-    buildingsAssessmentSummary: number;
     contextToProfession: boolean;
-    outputEssenceValue: number;
+    outputGeoValue: string;
+    outputEssenceValue: string;
+
+    constructor(cluster: Cluster, outputGeoValue: string, outputEssenceValue: string) {
+        this.cluster = cluster;
+        this.outputGeoValue = outputGeoValue;
+        this.outputEssenceValue = outputEssenceValue;
+
+        // todo: handle contextToProfession
+        this.contextToProfession = false;
+    }
 }

@@ -61,6 +61,7 @@ function createCluster(element: CsvLine): Cluster {
         profession: element['profession'],
         numberOfBuildings: Number(element['number_of_buildings']),
         geoBuildings: buildings,
+        inBuildingQuality: element['in_building_quality'],
     };
 
     return cluster;

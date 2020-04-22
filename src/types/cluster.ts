@@ -9,4 +9,5 @@ export interface Cluster {
     profession: string;
     numberOfBuildings: number;
     geoBuildings: Building[];
+    inBuildingQuality: string;
 }
