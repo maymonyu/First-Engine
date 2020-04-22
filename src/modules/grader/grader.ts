@@ -21,10 +21,11 @@ export class Grader {
     }
 
     private createKey(cluster: Cluster): string {
-        const {clusteringQuality, inBuildingQuality, minStaying,
-            maxStaying, numberOfBuildings} = cluster;
+        const {clusteringQuality, inBuildingQuality, stayingInterval,
+            numberOfBuildings} = cluster;
 
         return clusteringQuality + ',' + inBuildingQuality + ',' +
-            minStaying + '_to_' + maxStaying + ',' + numberOfBuildings;
+            stayingInterval.minTimeinHours + '_to_' + stayingInterval.maxTimeInHours +
+            ',' + numberOfBuildings;
     }
 }

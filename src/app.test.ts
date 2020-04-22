@@ -20,6 +20,7 @@ function createClusterExample(geoBuildings: Building[]): Cluster {
         profession: 'wizard',
         numberOfBuildings: 1,
         geoBuildings: geoBuildings,
+        inBuildingQuality: '',
     };
 };
 
