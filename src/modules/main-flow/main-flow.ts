@@ -2,17 +2,10 @@ import {readClusters, readIturim, readConstitution} from '../data-providers';
 import {CrossChecker} from '../cross-checker';
 import {Grader} from '../grader';
 
-export class MainFlow {
-    private crossChecker: CrossChecker;
-
-    constructor() {
-        this.crossChecker = new CrossChecker();
-    }
-
-    public async start(): Promise<void> {
-        const constitution = await readConstitution();
-        const clusters = await readClusters();
-        const iturim = await readIturim();
+export async function start(): Promise<void> {
+    const constitution = await readConstitution();
+    const clusters = await readClusters();
+    const iturim = await readIturim();
 
         const clustersWithIturim =
             clusters.map((cluster) => this.crossChecker.crossClusterWithIturim(cluster, iturim));
@@ -28,5 +21,4 @@ export class MainFlow {
             with outputGeoValue ${results[0].outputGeoValue}
             with outputEssenceValue ${results[0].outputEssenceValue}`);
         }
-    }
 }

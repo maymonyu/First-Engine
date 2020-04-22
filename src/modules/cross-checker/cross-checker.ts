@@ -1,28 +1,39 @@
 import {isPointInPolygon} from 'geolib';
 
-import {Cluster, Itur, Coordinate} from 'src/types';
+import {Cluster, Itur, Point, Building} from 'src/types';
 
-export class CrossChecker {
-    crossClusterWithIturim(cluster: Cluster, iturim: Itur[]): Cluster {
-        for (const building of cluster.geoBuildings) {
-            const relevantIturim = this.getIturimInsidePolygon(iturim, building.coordinates);
-            if (!relevantIturim || relevantIturim.length === 0) {
-                continue;
-            }
-
-            building.iturim = relevantIturim;
-            building.score = 1;
+export function crossClusterWithIturim(cluster: Cluster, iturim: Itur[]): Cluster {
+    for (const building of cluster.geoBuildings) {
+        const relevantIturim = getIturimInsidePolygon(iturim, building.polygon);
+        if (!relevantIturim || relevantIturim.length === 0) {
+            continue;
         }
 
-        return cluster;
+        building.iturim = relevantIturim;
+        building.score = 1;
+        building.score += getCrossIdentificationFactor(cluster.identification, building);
     }
 
-    private getIturimInsidePolygon(iturim: Itur[], polygon: Coordinate[]): Itur[] {
-        if (!polygon || polygon.length < 3) {
-            console.error(`can't search for iturim inside polygon: ${polygon}`);
-            return [];
-        }
+    return cluster;
+}
 
-        return iturim.filter((itur) => isPointInPolygon(itur.location, polygon));
+function getIturimInsidePolygon(iturim: Itur[], polygon: Point[]): Itur[] {
+    if (!polygon || polygon.length < 3) {
+        console.error(`can't search for iturim inside polygon: ${polygon}`);
+        return [];
     }
+
+    return iturim.filter((itur) => isPointInPolygon(itur.location, polygon));
+}
+
+
+function getCrossIdentificationFactor(clusterIdentification: string, building: Building): number {
+    const iturim = building.iturim;
+    if (!iturim || iturim.length == 0) {
+        return 0;
+    }
+
+    const crossFound = iturim.some((itur) => itur.tabuOwner === clusterIdentification);
+    const factor = crossFound ? 1 : -1;
+    return factor;
 }
