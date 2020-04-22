@@ -1,6 +1,6 @@
 import {isPointInPolygon} from 'geolib';
 
-import {Cluster, Itur, Point} from 'src/types';
+import {Cluster, Itur, Point, Building} from 'src/types';
 
 export function crossClusterWithIturim(cluster: Cluster, iturim: Itur[]): Cluster {
     for (const building of cluster.geoBuildings) {
@@ -11,7 +11,7 @@ export function crossClusterWithIturim(cluster: Cluster, iturim: Itur[]): Cluste
 
         building.iturim = relevantIturim;
         building.score = 1;
-        building.score += this.getCrossIdentificationFactor(cluster.identification, building);
+        building.score += getCrossIdentificationFactor(cluster.identification, building);
     }
 
     return cluster;
@@ -22,7 +22,7 @@ function getIturimInsidePolygon(iturim: Itur[], polygon: Point[]): Itur[] {
         console.error(`can't search for iturim inside polygon: ${polygon}`);
         return [];
     }
-  
+
     return iturim.filter((itur) => isPointInPolygon(itur.location, polygon));
 }
 
@@ -32,7 +32,7 @@ function getCrossIdentificationFactor(clusterIdentification: string, building: B
     if (!iturim || iturim.length == 0) {
         return 0;
     }
-  
+
     const crossFound = iturim.some((itur) => itur.tabuOwner === clusterIdentification);
     const factor = crossFound ? 1 : -1;
     return factor;
