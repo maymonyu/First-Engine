@@ -5,7 +5,7 @@ export interface Cluster {
     id: string;
     clusteringQuality: string;
     identification: string;
-    stayingInterval: StayingInterval;
+    stayingInterval?: StayingInterval;
     profession: string;
     numberOfBuildings: number;
     geoBuildings: Building[];

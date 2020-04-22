@@ -1,31 +1,22 @@
 import {Cluster, Constitution} from 'src/types';
-import {CrossingResult} from '../cross-checker/types/crossing-result';
+import {CrossingResult} from '../cross-checker';
 
+export function getClusterGrade(constitution: Constitution, cluster: Cluster): CrossingResult {
+    const key = createKey(cluster);
+    const value = constitution[key];
 
-export class Grader {
-    private constitution: Constitution;
+    // TODO validate value
 
-    constructor(constitution: Constitution) {
-        this.constitution = constitution;
-    }
+    const result = new CrossingResult(cluster, value.geographicScore, value.essenceScore);
 
-    gradeUsingConstituition(cluster: Cluster): CrossingResult {
-        const key = this.createKey(cluster);
-        const value = this.constitution[key];
+    return result;
+}
 
-        // todo validate value
+function createKey(cluster: Cluster): string {
+    const {clusteringQuality, inBuildingQuality, stayingInterval,
+        numberOfBuildings} = cluster;
 
-        const result = new CrossingResult(cluster, value.geographicScore, value.essenceScore);
-
-        return result;
-    }
-
-    private createKey(cluster: Cluster): string {
-        const {clusteringQuality, inBuildingQuality, stayingInterval,
-            numberOfBuildings} = cluster;
-
-        return clusteringQuality + ',' + inBuildingQuality + ',' +
-            stayingInterval.minTimeinHours + '_to_' + stayingInterval.maxTimeInHours +
-            ',' + numberOfBuildings;
-    }
+    return clusteringQuality + ',' + inBuildingQuality + ',' +
+        stayingInterval?.minTimeinHours + '_to_' + stayingInterval?.maxTimeInHours +
+        ',' + numberOfBuildings;
 }

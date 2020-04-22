@@ -1,6 +1,6 @@
 import {readClusters, readIturim, readConstitution} from '../data-providers';
-import {Grader} from '../grader';
-import * as crossChecker from '../cross-checker';
+import {getClusterGrade} from '../grader';
+import {crossClusterWithIturim} from '../cross-checker';
 
 export async function start(): Promise<void> {
     const constitution = await readConstitution();
@@ -8,11 +8,9 @@ export async function start(): Promise<void> {
     const iturim = await readIturim();
 
     const clustersWithIturim =
-            clusters.map((cluster) => crossChecker.crossClusterWithIturim(cluster, iturim));
+        clusters.map((cluster) => crossClusterWithIturim(cluster, iturim));
 
-    const grader = new Grader(constitution);
-
-    const results = clustersWithIturim.map((cluster) => grader.gradeUsingConstituition(cluster));
+    const results = clustersWithIturim.map((cluster) => getClusterGrade(constitution, cluster));
 
     console.log(`there are ${results.length} results.`);
     if (results.length > 0) {

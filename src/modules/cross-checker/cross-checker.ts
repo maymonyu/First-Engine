@@ -17,12 +17,15 @@ export function crossClusterWithIturim(cluster: Cluster, iturim: Itur[]): Cluste
     return cluster;
 }
 
-function getIturimInsidePolygon(iturim: Itur[], polygon: Point[]): Itur[] {
+function getIturimInsidePolygon(iturim: Itur[], polygon: Point[]): Itur[] | undefined {
     if (!polygon || polygon.length < 3) {
         console.error(`can't search for iturim inside polygon: ${polygon}`);
-        return [];
+        return undefined;
     }
 
+    // IMPORTANT!!! itur.location must have properies with the name 'longitude' and
+    // 'latitude', since 'isPointInPolygon' requires it.
+    // TODO: wrap it in function that builds a point for the library.
     return iturim.filter((itur) => isPointInPolygon(itur.location, polygon));
 }
 

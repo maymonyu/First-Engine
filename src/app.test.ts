@@ -1,5 +1,5 @@
-import {Cluster, Point, Itur, Building} from './types/index';
-import {crossClusterWithIturim} from './modules/cross-checker/cross-checker';
+import {Cluster, Point, Itur, Building} from './types';
+import {crossClusterWithIturim} from './modules/cross-checker';
 
 function createIturExample(points: Point): Itur {
     return {

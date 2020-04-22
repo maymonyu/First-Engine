@@ -14,6 +14,32 @@ import {
 
 type CsvLine = {[propertyName: string]: string};
 
+export async function readClusters(): Promise<Cluster[]> {
+    const clustersCsvData = await readCsvFile('./data/Tvirim.csv');
+
+    const clusters = clustersCsvData.map(createCluster);
+
+    return clusters;
+};
+
+export async function readIturim(): Promise<Itur[]> {
+    const IturimCsvData = await readCsvFile('./data/iturim.csv');
+
+    const iturim: Itur[] = IturimCsvData.map(createItur);
+
+    return iturim;
+};
+
+export async function readConstitution(): Promise<Constitution> {
+    const rulesCsvData = await readCsvFile('./data/Constitution.csv');
+    const constitution: Constitution = {};
+
+    const rules: Rule[] = rulesCsvData.map(createRule);
+    rules.forEach((rule) => constitution[rule.key] = rule.value);
+
+    return constitution;
+};
+
 function extractPoints(parsedPolygon: GeoJSON.GeometryObject): Point[] {
     parsedPolygon = parsedPolygon as GeoJSON.DirectGeometryObject;
 
@@ -34,11 +60,12 @@ function parseBuildings(buildingsAsString: string): Building[] {
     return polygons;
 }
 
-function parseStaying(stayingString: string): StayingInterval {
+function parseStaying(stayingString: string): StayingInterval | undefined {
     const range = stayingString.split('_');
     if (range.length === 3) {
         return new StayingInterval(Number(range[0]), Number(range[2]));
     }
+    
     const minStaying = stayingString.split('+');
     if (minStaying.length > 0) {
         return new StayingInterval(Number(minStaying[0]));
@@ -46,7 +73,7 @@ function parseStaying(stayingString: string): StayingInterval {
 
     console.error(`'staying' property is expected to be in the format:
         'fromNumber_to_toNumber' or 'number+'. Got: ${stayingString}`);
-    return new StayingInterval(NaN);
+    return undefined;
 }
 
 function createCluster(element: CsvLine): Cluster {
@@ -107,30 +134,4 @@ function createRule(element: CsvLine): Rule {
 
 function readCsvFile(filePath: string): PromiseLike<CsvLine[]> {
     return csv().fromFile(filePath);
-};
-
-export async function readClusters(): Promise<Cluster[]> {
-    const clustersCsvData = await readCsvFile('./data/Tvirim.csv');
-
-    const clusters = clustersCsvData.map(createCluster);
-
-    return clusters;
-};
-
-export async function readIturim(): Promise<Itur[]> {
-    const IturimCsvData = await readCsvFile('./data/iturim.csv');
-
-    const iturim: Itur[] = IturimCsvData.map(createItur);
-
-    return iturim;
-};
-
-export async function readConstitution(): Promise<Constitution> {
-    const rulesCsvData = await readCsvFile('./data/Constitution.csv');
-    const constitution: Constitution = {};
-
-    const rules: Rule[] = rulesCsvData.map(createRule);
-    rules.forEach((rule) => constitution[rule.key] = rule.value);
-
-    return constitution;
 };
