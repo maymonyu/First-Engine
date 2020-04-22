@@ -65,7 +65,7 @@ function parseStaying(stayingString: string): StayingInterval | undefined {
     if (range.length === 3) {
         return new StayingInterval(Number(range[0]), Number(range[2]));
     }
-    
+
     const minStaying = stayingString.split('+');
     if (minStaying.length > 0) {
         return new StayingInterval(Number(minStaying[0]));
